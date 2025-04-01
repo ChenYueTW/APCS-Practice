@@ -1,38 +1,29 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> k = new ArrayList<>();
-
-        while (scanner.hasNextLine()) {
-            int n = Integer.valueOf(scanner.nextLine());
-            String cache = "";
-            for (int i = 0; i < n; i++) {
-                String[] s = scanner.nextLine().split(" ");
-                cache += getEncode(s);
-            }
-            k.add(cache);
+        String[] firstLine = scanner.nextLine().split(" ");
+        int a1 = Integer.valueOf(firstLine[0]);
+        int b1 = Integer.valueOf(firstLine[1]);
+        int c1 = Integer.valueOf(firstLine[2]);
+        
+        String[] secondLine = scanner.nextLine().split(" ");
+        int a2 = Integer.valueOf(secondLine[0]);
+        int b2 = Integer.valueOf(secondLine[1]);
+        int c2 = Integer.valueOf(secondLine[2]);
+        
+        int n = Integer.valueOf(scanner.nextLine());
+        
+        int ans = -Integer.MIN_VALUE;
+        for (int i = 0; i < n + 1; i++) {
+            int x1 = i;
+            int x2 = n - i;
+            int y1 = a1 * x1 * x1 + b1 * x1 + c1;
+            int y2 = a2 * x2 * x2 + b2 * x2 + c2;
+            ans = ans > y1 + y2 ? ans : y1 + y2;
         }
-
-        for (int i = 0; i < k.size(); i++) {
-            System.out.println(k.get(i));
-        }
+        System.out.println(ans);
         scanner.close();
-    }
-
-    public static String getEncode(String[] line) {
-        if (line[0].equals("0")) { // ABC
-            if (line[1].equals("1")) { // AB
-                if (line[2].equals("0")) return "A";
-                else return "B";
-            } else return "C";
-        } else { // DEF
-            if (line[1].equals("1")) { // DF
-                if (line[3].equals("1")) return "D";
-                else return "F";
-            } else return "E";
-        }
     }
 }

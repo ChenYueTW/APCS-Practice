@@ -40,6 +40,7 @@ public class Main {
             }
             System.out.println();
         }
+        scanner.close();
     }
 
     public static int[][] change(int[][] array, int row, int column) {
