@@ -1,20 +1,22 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         long[] n = new long[100];
         int k = 0;
 
-        while (scanner.hasNextLine()) {
-            n[k] = Long.valueOf(scanner.nextLine());
+        String line;
+        while ((line = reader.readLine()) != null) {
+            n[k] = Long.valueOf(line);
             k += 1;
         }
 
         for (int i = 0; i < k; i++) {
             System.out.println(getLadder(n[i]));
         }
-        scanner.close();
     }
 
     public static int getLadder(Long n) {

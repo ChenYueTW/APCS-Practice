@@ -2,9 +2,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
-import java.util.HashSet;
+import java.util.HashMap;
 
-public class Rebuild {
+public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String[] firstLine = reader.readLine().split(" ");
@@ -17,25 +17,21 @@ public class Rebuild {
             array[i] = new BigInteger(rainbow[i]);
         }
 
-        System.out.println(process(array, n, m));
-    }
-
-    public static Long process(BigInteger[] array, int n, int m) {
-        HashSet<BigInteger> set = new HashSet<>();
-        Long ans = 0L;
-        boolean init = false;
+        HashMap<BigInteger, Integer> map = new HashMap<>();
+        int ans = 0;
 
         for (int i = 0; i < m; i++) {
-           if (!set.add(array[i])) init = true;
+            map.put(array[i], map.getOrDefault(array[i], 0) + 1);
         }
-
-        if (!init) ans += 1;
+        if (map.size() == m) ans++;
 
         for (int i = 1; i <= n - m; i++) {
-            set.remove(array[i - 1]);
-            if (!set.add(array[i + m - 1])) continue;
-            ans += 1;
+            map.put(array[i - 1], map.get(array[i - 1]) - 1);
+            if (map.get(array[i - 1]) == 0) map.remove(array[i - 1]);
+
+            map.put(array[i + m - 1], map.getOrDefault(array[i + m - 1], 0) + 1);
+            if (map.size() == m) ans++;
         }
-        return ans;
+        System.out.println(ans);
     }
 }
