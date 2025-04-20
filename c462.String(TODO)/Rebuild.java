@@ -32,34 +32,33 @@ public class Rebuild {
             else if (i == k) kArr.add(1);
             else kArr.add(0);
         }
+        // System.out.println(kArr.toString());
 
         // Get longest k
         int ans = 0;
         int cache = 0;
-        int loc = 0;
-        for (int i = 0; i < numArr.size(); i++) {
-            if (numArr.get(i) == k) cache += k;
+        for (int i = 0; i < kArr.size(); i++) {
+            if (kArr.get(i) == 1) {
+                cache += k;
+            }
             else {
+                if (i != 1 && i - cache / k > 0) {
+                    if (kArr.get(i - 1 - cache / k) == 2) cache += k;
+                }
+                if (kArr.get(i) == 2) cache += k;
+                
                 if (ans < cache) {
                     ans = cache;
-                    loc = i - 1;
                     cache = 0;
                 }
             }
         }
         // System.out.println(loc);
-       
-        if (ans == 0) for (int i : numArr) if (i == k) ans = k;
-        // left and right data
-        if (loc != 0) {
-            if (kArr.get(loc - ans / k) == 2) ans += k;
-        }
-        if (loc != kArr.size() - 1) {
-            if (kArr.get(loc + 1) == 2) ans += k;
-        }
-
         // System.out.println(numArr.toString());
         // System.out.println(kArr.toString());
+        // System.out.println(kArr.get(loc - ans / k));
+       
+        if (ans == 0) for (int i : kArr) if (i == 2) ans = k;
 
         System.out.println(ans);
     }
