@@ -21,9 +21,9 @@ public class Main {
         Arrays.sort(arr);
         total = m - total < 0 ? 0 : m - total;
         int cache = 0;
-        for (int i = n - 1; i >= 0; i--) {
-            if (cache >= (s - total)) break;
-            cache += arr[i];
+
+        for (int i = 0; i < n; i++) { // contorl 人數
+            
         }
         System.out.println(cache);
     }
